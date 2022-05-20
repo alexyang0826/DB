@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php session_start();
+try{
+    if( $_SESSION['Authenticated'] != true){
+        header("Location: index.php");
+    }
+}catch(Exception $e){
+    header("Location: index.php");
+}
+?>
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <script>
@@ -19,7 +27,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="js/check_shop_name.js"></script>
     <script src="js/search_list.js"></script>
-    <script type="text/javascript" src="js/jquery.edit_location.js"></script>
+
     <title>VberEats</title>
 </head>
 
@@ -28,12 +36,8 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <ul class="nav nav-tabs">
-                <a class="navbar-brand " href="nav.php">VberEats</a>
-                <a class="navbar-brand " href="#home">Home</a>
-                <a class="navbar-brand " href="#menu1">shop</a>
-                <a class="navbar-brand " href="php/logout.php">Logout</a>
-            </ul>
+            <a class="navbar-brand " href="nav.php">VberEats</a>
+            <a class="navbar-brand " href="php/logout.php">logout</a>
         </div>
 
     </div>
@@ -108,7 +112,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <input type="text" class="form-control" id="value"
-                                               placeholder="enter add value" name = "value">
+                                               placeholder="enter add value" name="value">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary">Add</button>
@@ -231,26 +235,34 @@
                             <label for="ex5">shop name</label>
                             <input class="form-control" id="ex5" name="shop_name"
                                    placeholder="<?php echo $_SESSION['shop_name']; ?>"
-                                   type="text" <?php if($_SESSION['user_type']=='manger'){ echo "disabled";}; ?> oninput="check_shop_name(this.value);">
-                            <label id ="check_shop_name"></label>
+                                   type="text" <?php if ($_SESSION['user_type'] == 'manger') {
+                                echo "disabled";
+                            }; ?> oninput="check_shop_name(this.value);">
+                            <label id="check_shop_name"></label>
                         </div>
                         <div class="col-xs-2">
                             <label for="ex5">shop category</label>
                             <input class="form-control" id="ex5" name="shop_category"
                                    placeholder="<?php echo $_SESSION['shop_category']; ?>"
-                                   type="text" <?php if($_SESSION['user_type']=='manger'){ echo "disabled";}; ?>>
+                                   type="text" <?php if ($_SESSION['user_type'] == 'manger') {
+                                echo "disabled";
+                            }; ?>>
                         </div>
                         <div class="col-xs-2">
                             <label for="ex6">latitude</label>
                             <input class="form-control" id="ex6" name="shop_latitude"
                                    placeholder="<?php echo $_SESSION['shop_latitude']; ?>"
-                                   type="text" <?php if($_SESSION['user_type']=='manger'){ echo "disabled";}; ?>>
+                                   type="text" <?php if ($_SESSION['user_type'] == 'manger') {
+                                echo "disabled";
+                            }; ?>>
                         </div>
                         <div class="col-xs-2">
                             <label for="ex8">longitude</label>
                             <input class="form-control" id="ex8" name="shop_longitude"
                                    placeholder="<?php echo $_SESSION['shop_longitude']; ?>"
-                                   type="text" <?php if($_SESSION['user_type']=='manger'){ echo "disabled";}; ?>>
+                                   type="text" <?php if ($_SESSION['user_type'] == 'manger') {
+                                echo "disabled";
+                            }; ?>>
                         </div>
                     </div>
                 </div>
@@ -258,7 +270,9 @@
 
                 <div class=" row" style=" margin-top: 25px;">
                     <div class=" col-xs-3">
-                        <button type="submit" class="btn btn-primary" <?php if($_SESSION['user_type']=='manger'){ echo "disabled";}; ?>>register
+                        <button type="submit" class="btn btn-primary" <?php if ($_SESSION['user_type'] == 'manger') {
+                            echo "disabled";
+                        }; ?>>register
                         </button>
                     </div>
                 </div>
@@ -268,35 +282,50 @@
             <h3>ADD</h3>
             <!-- upload meal -->
             <form action="php/shop_add.php" method="post" class="form-group" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <label for="ex3">meal name</label>
-                            <input name="product_name" class="form-control" id="ex3" type="text" <?php if($_SESSION['user_type']!='manger'){ echo "disabled";}; ?> >
-                        </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label for="ex3">meal name</label>
+                        <input name="product_name" class="form-control" id="ex3"
+                               type="text" <?php if ($_SESSION['user_type'] != 'manger') {
+                            echo "disabled";
+                        }; ?> >
                     </div>
-                    <div class="row" style=" margin-top: 15px;">
-                        <div class="col-xs-3">
-                            <label for="ex7">price</label>
-                            <input name="product_price" class="form-control" id="ex7" type="text" <?php if($_SESSION['user_type']!='manger'){ echo "disabled";}; ?> >
-                        </div>
-                        <div class="col-xs-3">
-                            <label for="ex4">quantity</label>
-                            <input name="product_amount" class="form-control" id="ex4" type="text" <?php if($_SESSION['user_type']!='manger'){ echo "disabled";}; ?> >
-                        </div>
+                </div>
+                <div class="row" style=" margin-top: 15px;">
+                    <div class="col-xs-3">
+                        <label for="ex7">price</label>
+                        <input name="product_price" class="form-control" id="ex7"
+                               type="text" <?php if ($_SESSION['user_type'] != 'manger') {
+                            echo "disabled";
+                        }; ?> >
+                    </div>
+                    <div class="col-xs-3">
+                        <label for="ex4">quantity</label>
+                        <input name="product_amount" class="form-control" id="ex4"
+                               type="text" <?php if ($_SESSION['user_type'] != 'manger') {
+                            echo "disabled";
+                        }; ?> >
+                    </div>
+                </div>
+
+                <div class="row" style=" margin-top: 25px;">
+
+                    <div class=" col-xs-3">
+                        <label for="ex12">上傳圖片</label>
+                        <input id="myFile" type="file" name="myFile" multiple
+                               class="file-loading" <?php if ($_SESSION['user_type'] != 'manger') {
+                            echo "disabled";
+                        }; ?> >
                     </div>
 
-                    <div class="row" style=" margin-top: 25px;">
-
-                        <div class=" col-xs-3">
-                            <label for="ex12">上傳圖片</label>
-                            <input id="myFile" type="file" name="myFile" multiple class="file-loading" <?php if($_SESSION['user_type']!='manger'){ echo "disabled";}; ?> >
-                        </div>
-
-                        <div class=" col-xs-3">
-                            <input style=" margin-top: 15px;" type="submit" class="btn btn-primary" value="Add" <?php if($_SESSION['user_type']!='manger'){ echo "disabled";}; ?> >
-                        </div>
-
+                    <div class=" col-xs-3">
+                        <input style=" margin-top: 15px;" type="submit" class="btn btn-primary"
+                               value="Add" <?php if ($_SESSION['user_type'] != 'manger') {
+                            echo "disabled";
+                        }; ?> >
                     </div>
+
+                </div>
             </form>
             <div class="row">
                 <div class="  col-xs-8">
@@ -328,12 +357,12 @@
                         $conn->setAttribute(
                             PDO::ATTR_ERRMODE,
                             PDO::ERRMODE_EXCEPTION);
-                        if($_SESSION['user_type'] == 'manger'){
+                        if ($_SESSION['user_type'] == 'manger') {
                             $stmt = $conn->prepare("select * from product where product_shop=:product_shop");
                             $stmt->execute(array('product_shop' => $_SESSION['shop_name']));
                             $order = 0;
                             unset($row);
-                            while($row=$stmt->fetch()){
+                            while ($row = $stmt->fetch()) {
                                 $order++;
                                 $PID = $row['PID'];
                                 $product_img_type = $row['product_img_type'];
@@ -341,11 +370,11 @@
                                 $product_name = $row['product_name'];
                                 $product_price = $row['product_price'];
                                 $product_amount = $row['product_amount'];
-                                echo<<<EOT
+                                echo <<<EOT
                                     <!DOCTYPE html>
                                     <tr>
                                         <th scope="row">$order</th>
-                                        <td><img src="data:$product_img_type; base64,$product_img" width="50%" height="50%" alt="Hamburger"></td>
+                                        <td><img src="data:$product_img_type; base64,$product_img" max-width="100px" height="100px" alt="Hamburger"></td>
                                         <td>$product_name</td>
                                         <td>$product_price</td>
                                         <td>$product_amount</td>
