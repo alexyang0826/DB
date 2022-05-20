@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <script>
     filter = {};
 </script>
@@ -19,6 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="js/check_shop_name.js"></script>
     <script src="js/search_list.js"></script>
+    <script type="text/javascript" src="js/jquery.edit_location.js"></script>
     <title>VberEats</title>
 </head>
 
@@ -47,8 +48,6 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home">Home</a></li>
         <li><a href="#menu1">shop</a></li>
-
-
     </ul>
     <
     <div class="tab-content">
@@ -95,7 +94,7 @@
                     <!--  -->
                     walletbalance:<?php echo $_SESSION['user_balance']; ?>
                     <!-- Modal -->
-                    <button type="button " style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
+                    <button type="button" style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
                             data-target="#myModal">Add value
                     </button>
                     <div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog"
