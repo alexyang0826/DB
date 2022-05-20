@@ -81,7 +81,7 @@ try{
             <html lang="en-us">
                 <body>
                     <script>
-                        alert("ADD a product successfully.");
+                        alert("Add a product successfully.");
                         window.location.replace("../nav.php");
                     </script>
                 </body>
