@@ -25,13 +25,13 @@ try {
     $conn = new PDO("mysql:host=$dbservername;dbname=$dbname", $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $conn->prepare("SELECT user_account, user_password, user_name, user_phone, ST_Astext(user_location) as user_location, user_type, user_balance from user where user_account = :user_account");
+    $stmt = $conn->prepare("SELECT user_account, user_password, user_name, user_phone, ST_Astext(user_location) as user_location, user_type, user_balance, user_salt from user where user_account = :user_account");
     $stmt->execute(array('user_account' => $Account));
     if ($stmt->rowCount() == 0) {
         throw new Exception('Login failed!!');
     } else {
         $row = $stmt->fetch();
-        if ($row['user_password'] == hash('sha256', $password)) {
+        if ($row['user_password'] == hash('sha256', $row['user_salt'].$password)) {
             $_SESSION['user_account'] = $row['user_account'];
             $_SESSION['user_name'] = $row['user_name'];
             $_SESSION['user_phone'] = $row['user_phone'];

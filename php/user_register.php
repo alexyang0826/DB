@@ -56,12 +56,13 @@ try {
     if ($stmt->rowCount() != 0) {   //check if account has been register
         throw new Exception("Account has been register!!");
     } else {
-        $hashvalue = hash('sha256', $password);
+        $salt = strval(rand(1000,9999));
+        $hashvalue = hash('sha256', $salt.$password);
         $stmt = $conn->prepare("INSERT INTO
-            user (user_account, user_password, user_name, user_phone, user_location, user_type, user_balance)
-            values (:Account, :password,  :name, :phonenumber, ST_GeometryFromText(:location), :user_type, :user_balance)");
+            user (user_account, user_password, user_name, user_phone, user_location, user_type, user_balance, user_salt)
+            values (:Account, :password,  :name, :phonenumber, ST_GeometryFromText(:location), :user_type, :user_balance, :user_salt)");
         $stmt->execute(array('Account'=>$Account, 'password'=>$hashvalue, 'phonenumber'=>$phonenumber,
-            'name'=>$name,'location'=>'POINT('. $longitude . ' ' . $latitude . ')', 'user_type'=>'user', 'user_balance'=>0));
+            'name'=>$name,'location'=>'POINT('. $longitude . ' ' . $latitude . ')', 'user_type'=>'user', 'user_balance'=>0, 'user_salt'=>$salt));
         echo <<<EOT
             <!DOCTYPE html>
             <html lang="en-us">
