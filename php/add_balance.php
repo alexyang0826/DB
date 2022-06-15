@@ -17,7 +17,10 @@ try {
     if(!is_numeric($_POST['value'])){
         throw new Exception("Value can only contains numbers!");
     }
-    $value = (int)$_POST['value'];
+    if($_POST['value']  <= 0){
+        throw new Exception("Value can only be positive!");
+    }
+    $value = (int)$_POST['value'] + $_SESSION['user_balance'];
 
     $conn = new PDO("mysql:host=$dbservername;dbname=$dbname", $dbusername, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
