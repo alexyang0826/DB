@@ -1,9 +1,9 @@
 <?php session_start();
-try{
-    if( $_SESSION['Authenticated'] != true){
+try {
+    if ($_SESSION['Authenticated'] != true) {
         header("Location: index.php");
     }
-}catch(Exception $e){
+} catch (Exception $e) {
     header("Location: index.php");
 }
 ?>
@@ -36,7 +36,7 @@ try{
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand " href="nav.php">VberEats</a>
+            <a class="navbar-brand " href="nav.php#home">VberEats</a>
         </div>
 
     </div>
@@ -52,7 +52,7 @@ try{
         <li class="active"><a href="#home">Home</a></li>
         <li><a href="#shop">Shop</a></li>
         <li><a href="#my_order">My Order</a></li>
-        <?php if($_SESSION['user_type'] == 'manger') echo '<li><a href="#shop_order">Shop Order</a></li>'?>
+        <?php if ($_SESSION['user_type'] == 'manger') echo '<li><a href="#shop_order">Shop Order</a></li>' ?>
         <li><a href="#transaction_record">Transaction Record</a></li>
         <li><a href="php/logout.php">logout</a></li>
     </ul>
@@ -102,7 +102,7 @@ try{
                     walletbalance:<?php echo $_SESSION['user_balance']; ?>
                     <!-- Modal -->
                     <button type="button" style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
-                            data-target="#addValue">Add value
+                            data-target="#addValue">Recharge
                     </button>
                     <div class="modal fade" id="addValue" data-backdrop="static" tabindex="-1" role="dialog"
                          aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -226,7 +226,6 @@ try{
                         <div id="result-list" class="col-xs-8"></div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div id="shop" class="tab-pane fade">
@@ -429,16 +428,15 @@ try{
                     </table>
                 </div>
             </div>
-
         </div>
-        <div id="my_order" class="tab-pane fade in active">
-            My Order
+        <div id="my_order" class="tab-pane fade">
+            <h3>My Order</h3>
         </div>
-        <div id="shop_order" class="tab-pane fade in active">
-            Shop Order
+        <div id="shop_order" class="tab-pane fade">
+            <h3>Shop Order</h3>
         </div>
-        <div id="transaction_record" class="tab-pane fade in active">
-            Transaction Record
+        <div id="transaction_record" class="tab-pane fade">
+            <h3>Transaction Record</h3>
         </div>
     </div>
 </div>
