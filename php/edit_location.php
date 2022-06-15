@@ -17,6 +17,12 @@ try {
     if(!is_numeric($_POST['latitude']) || !is_numeric($_POST['longitude'])){
         throw new Exception("latitude and longitude can only contains numbers!");
     }
+    if((float)$_POST['latitude']>90.0 || (float)$_POST['latitude']<-90){
+        throw new Exception('latitude must between -90~90');
+    }
+    if((float)$_POST['longitude']>180.0 || (float)$_POST['longitude']<-180){
+        throw new Exception('longitude must between -180~180');
+    }
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
     $conn = new PDO("mysql:host=$dbservername;dbname=$dbname", $dbusername, $dbpassword);
@@ -41,6 +47,7 @@ EOT;
     exit();
 }catch (Exception $e) {
     $msg = $e->getMessage();
+    $_SESSION['model'] = "#home";
     echo <<<EOT
         <!DOCTYPE html>
         <html lang="en-us">

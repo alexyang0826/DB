@@ -56,7 +56,7 @@ try {
                 <body>
                     <script>
                         alert("Start a business successfully.");
-                        window.location.replace("../nav.php");
+                        window.location.replace("../nav.php#shop");
                     </script>
                 </body>
             </html>
@@ -71,7 +71,7 @@ try {
             <body>
                 <script>
                 alert("$msg");
-                window.location.replace("../nav.php#menu1");
+                window.location.replace("../nav.php#shop");
                 </script>
             </body>
         </html>

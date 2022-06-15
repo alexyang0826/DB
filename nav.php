@@ -37,7 +37,6 @@ try{
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand " href="nav.php">VberEats</a>
-            <a class="navbar-brand " href="php/logout.php">logout</a>
         </div>
 
     </div>
@@ -51,7 +50,8 @@ try{
 
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home">Home</a></li>
-        <li><a href="#menu1">shop</a></li>
+        <li><a href="#shop">shop</a></li>
+        <li><a href="php/logout.php">logout</a></li>
     </ul>
     <
     <div class="tab-content">
@@ -99,9 +99,9 @@ try{
                     walletbalance:<?php echo $_SESSION['user_balance']; ?>
                     <!-- Modal -->
                     <button type="button" style="margin-left: 5px;" class=" btn btn-info " data-toggle="modal"
-                            data-target="#myModal">Add value
+                            data-target="#addValue">Add value
                     </button>
-                    <div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="addValue" data-backdrop="static" tabindex="-1" role="dialog"
                          aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog  modal-sm">
                             <form action="php/add_balance.php" method="post">
@@ -226,7 +226,7 @@ try{
 
             </div>
         </div>
-        <div id="menu1" class="tab-pane fade">
+        <div id="shop" class="tab-pane fade">
             <form action="php/shop_register.php" method="post">
                 <h3> Start a business </h3>
                 <div class="form-group ">
@@ -436,6 +436,14 @@ try{
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
 <script>
+    var hash = location.hash.replace(/^#/, '');  // ^ means starting, meaning only match the first hash
+    if (hash) {
+        $('.nav-tabs a[href="#' + hash + '"]').tab('show');
+    }
+    // Change hash for page-reload
+    $('.nav-tabs a').on('shown.bs.tab', function (e) {
+        window.location.hash = e.target.hash;
+    })
     $(document).ready(function () {
         $(".nav-tabs a").click(function () {
             $(this).tab('show');

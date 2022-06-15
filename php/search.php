@@ -191,7 +191,7 @@ try {
             $product_amount = $row['product_amount'];
             $product_img = $row['product_img'];
             $product_img_type = $row['product_img_type'];
-            echo '<tr><td><img style="max-width:100%; max-height:200px" src="data:'.$product_img_type.';base64,' . $product_img . '" alt="$product_name"/></td>';
+            echo '<tr><td><img style="max-width:100%; max-height:200px" src="data:'.$product_img_type.';base64,' . $product_img . '" alt=$product_name/></td>';
             echo <<< EOT
                         <td>$product_name</td>
                         <td>$product_price</td>

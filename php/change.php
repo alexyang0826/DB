@@ -36,7 +36,7 @@ try {
                 <body>
                     <script>
                         alert("Edit product successfully.");
-                        window.location.replace("../nav.php");
+                        window.location.replace("../nav.php#shop");
                     </script>
                 </body>
             </html>
@@ -53,7 +53,7 @@ catch(Exception $e){
         <body>
         <script>
         alert("$msg");
-        window.location.replace("../nav.php");
+        window.location.replace("../nav.php#shop");
         </script>
         </body>
         </html>

@@ -168,5 +168,8 @@ input, textarea {
 .js .animate-box {
   opacity: 0;
 }
-
+table#search
+{
+  width: 800px;
+}
 /*# sourceMappingURL=style.css.map */
