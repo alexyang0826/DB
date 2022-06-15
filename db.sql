@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-06-15 13:54:49
+-- 產生時間： 2022-06-15 15:01:16
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 7.4.29
 
@@ -100,7 +100,8 @@ CREATE TABLE `shop` (
 INSERT INTO `shop` (`SID`, `shop_name`, `shop_location`, `shop_category`, `shop_owner`) VALUES
 (0002, 'macdonald', 0x000000000101000000aad36f9d04405e404491fae3e3c83840, 'fast food', 'user1'),
 (0003, 'starbucks', 0x0000000001010000000afceceb613e5e40d79d8059bbcf3840, 'coffee', 'user2'),
-(0005, 'Kentucky Fried Chicken', 0x000000000101000000514efb9fc8405e40a7c564cdb0cc3840, 'fast food', 'user3');
+(0005, 'Kentucky Fried Chicken', 0x000000000101000000514efb9fc8405e40a7c564cdb0cc3840, 'fast food', 'user3'),
+(0006, '123', 0x00000000010100000000000000000028400000000000002840, '123', '123');
 
 -- --------------------------------------------------------
 
@@ -113,7 +114,7 @@ CREATE TABLE `transaction` (
   `user_accont` varchar(100) NOT NULL,
   `tra_price` int(10) UNSIGNED NOT NULL,
   `tra_time` datetime NOT NULL,
-  `buy_sell` enum('buy','sell') NOT NULL
+  `tra_action` enum('payment','recharge','receive') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -140,7 +141,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`UID`, `user_account`, `user_password`, `user_salt`, `user_name`, `user_phone`, `user_location`, `user_type`, `user_balance`) VALUES
 (0003, 'user1', '5e45bc514e6d375cfaca6a872077e9e8321eb17a0f92f44c64bcbb1263d9a0a0', '1000', 'user1', 0123456789, 0x000000000101000000aad36f9d04405e404491fae3e3c83840, 'manger', 0),
-(0004, 'user2', '8eae400b13747a6ba8fcfd1788e8a3c0501fad92c332985936ee78156c5611c0', '1253', 'user2', 4294967295, 0x0000000001010000004bdc2887361d5e40622d791e8edc3840, 'manger', 0);
+(0004, 'user2', '8eae400b13747a6ba8fcfd1788e8a3c0501fad92c332985936ee78156c5611c0', '1253', 'user2', 4294967295, 0x0000000001010000004bdc2887361d5e40622d791e8edc3840, 'manger', 0),
+(0008, '123', '6e6c1042ecabfa33f1369c01b4b4d3e44d613a0dc28cbe741e971d0e7a6da221', '6398', '123', 0123456789, 0x00000000010100000000000000000028400000000000002840, 'manger', 0);
 
 --
 -- 已傾印資料表的索引
@@ -203,7 +205,7 @@ ALTER TABLE `product`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `SID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `SID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `transaction`
@@ -215,7 +217,7 @@ ALTER TABLE `transaction`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `user`
 --
 ALTER TABLE `user`
-  MODIFY `UID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `UID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
