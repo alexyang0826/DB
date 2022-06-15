@@ -58,7 +58,7 @@ try {
             }
             $_SESSION['user_balance'] = $row['user_balance'];
             $_SESSION['Authenticated'] = true;
-            header("Location: ../nav.php");
+            header("Location: ../nav.php#home");
             exit();
         } else {
             throw new Exception('Login failed!!');
