@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-05-24 08:31:29
+-- 產生時間： 2022-06-15 13:54:49
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 7.4.29
 
@@ -20,6 +20,36 @@ SET time_zone = "+00:00";
 --
 -- 資料庫: `db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `orders`
+--
+
+CREATE TABLE `orders` (
+  `OID` int(4) UNSIGNED ZEROFILL NOT NULL,
+  `shop_name` varchar(100) NOT NULL,
+  `user_account` varchar(100) NOT NULL,
+  `order_status` enum('undone','done','cancel') NOT NULL DEFAULT 'undone',
+  `order_start_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `order_finish_time` datetime DEFAULT NULL,
+  `order_distance` double UNSIGNED NOT NULL,
+  `order_price` int(10) UNSIGNED NOT NULL,
+  `order_type` enum('take_out','delivery') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `orders_product`
+--
+
+CREATE TABLE `orders_product` (
+  `OID` int(4) UNSIGNED ZEROFILL NOT NULL,
+  `PID` int(4) UNSIGNED ZEROFILL NOT NULL,
+  `op_amount` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -69,7 +99,22 @@ CREATE TABLE `shop` (
 
 INSERT INTO `shop` (`SID`, `shop_name`, `shop_location`, `shop_category`, `shop_owner`) VALUES
 (0002, 'macdonald', 0x000000000101000000aad36f9d04405e404491fae3e3c83840, 'fast food', 'user1'),
-(0003, 'starbucks', 0x0000000001010000000afceceb613e5e40d79d8059bbcf3840, 'coffee', 'user2');
+(0003, 'starbucks', 0x0000000001010000000afceceb613e5e40d79d8059bbcf3840, 'coffee', 'user2'),
+(0005, 'Kentucky Fried Chicken', 0x000000000101000000514efb9fc8405e40a7c564cdb0cc3840, 'fast food', 'user3');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `TID` int(4) UNSIGNED ZEROFILL NOT NULL,
+  `user_accont` varchar(100) NOT NULL,
+  `tra_price` int(10) UNSIGNED NOT NULL,
+  `tra_time` datetime NOT NULL,
+  `buy_sell` enum('buy','sell') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -102,6 +147,18 @@ INSERT INTO `user` (`UID`, `user_account`, `user_password`, `user_salt`, `user_n
 --
 
 --
+-- 資料表索引 `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`OID`);
+
+--
+-- 資料表索引 `orders_product`
+--
+ALTER TABLE `orders_product`
+  ADD PRIMARY KEY (`OID`,`PID`);
+
+--
 -- 資料表索引 `product`
 --
 ALTER TABLE `product`
@@ -115,6 +172,12 @@ ALTER TABLE `shop`
   ADD UNIQUE KEY `shop_name` (`shop_name`);
 
 --
+-- 資料表索引 `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`TID`);
+
+--
 -- 資料表索引 `user`
 --
 ALTER TABLE `user`
@@ -125,22 +188,34 @@ ALTER TABLE `user`
 --
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `OID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
 --
 ALTER TABLE `product`
-  MODIFY `PID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `PID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `SID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `SID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `TID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `user`
 --
 ALTER TABLE `user`
-  MODIFY `UID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `UID` int(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
