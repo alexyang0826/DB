@@ -50,7 +50,10 @@ try{
 
     <ul class="nav nav-tabs">
         <li class="active"><a href="#home">Home</a></li>
-        <li><a href="#shop">shop</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#my_order">My Order</a></li>
+        <?php if($_SESSION['user_type'] == 'manger') echo '<li><a href="#shop_order">Shop Order</a></li>'?>
+        <li><a href="#transaction_record">Transaction Record</a></li>
         <li><a href="php/logout.php">logout</a></li>
     </ul>
     <
@@ -427,6 +430,15 @@ try{
                 </div>
             </div>
 
+        </div>
+        <div id="my_order" class="tab-pane fade in active">
+            My Order
+        </div>
+        <div id="shop_order" class="tab-pane fade in active">
+            Shop Order
+        </div>
+        <div id="transaction_record" class="tab-pane fade in active">
+            Transaction Record
         </div>
     </div>
 </div>
