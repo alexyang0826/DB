@@ -1,5 +1,6 @@
 <?php
 session_start();
+ini_set('date.timezone','Asia/Taipei');
 
 $dbservername = 'localhost';
 $dbname = 'db';

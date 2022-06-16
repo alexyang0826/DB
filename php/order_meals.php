@@ -1,5 +1,6 @@
 <?php
 session_start();
+ini_set('date.timezone','Asia/Taipei');
 $dbservername = 'localhost';
 $dbname = 'db';
 $dbusername = 'admin';
@@ -77,7 +78,7 @@ try {
                                (:user_account,:trader,:price,:tra_time,:type)');
     $stmt->execute(array('user_account' => $shop_owner, 'type' => 'receive', 'tra_time' => date("Y-m-d H:i:s"), 'trader' => $_SESSION['user_account'], 'price' => '+' . $cost));
     echo "Order Successfully!";
-
+    echo date("Y-m-d H:i:s");
     $stmt = $conn->prepare('SELECT user_balance FROM user
                                     WHERE user_account = :user_account
                               ');
