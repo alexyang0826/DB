@@ -27,7 +27,7 @@
         $row = $stmt->fetch();
 
         $order_detail = json_decode($row['order_detail'],true);//return array
-        for($j=0 ; $j<count($order_detail) ; $j++){
+        for($j=1 ; $j<count($order_detail) ; $j++){//start from 0 or 1(other use this) ?
             $stmt = $conn->prepare('UPDATE product set product_amount=product_amount+:amount where product_name=:p_name and product_shop=:p_shop');
             $stmt->execute(array('amount' => $order_detail[$j]["product_amount"] , 'p_name' => $order_detail[$j]["product_name"],'p_shop'=>$row['shop_name']));
         }
