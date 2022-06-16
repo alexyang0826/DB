@@ -22,4 +22,5 @@ if ($stmt->rowCount()){
     $information = $stmt->fetchAll();
     echo  json_encode($information);
 }
+
 ?>
