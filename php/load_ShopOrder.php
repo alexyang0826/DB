@@ -8,8 +8,8 @@ $dbpassword = 'admin';
 $conn = new PDO("mysql:host = $dbservername;dbname=$dbname", $dbusername, $dbpassword);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$stmt = $conn->prepare("Select * from `shop` WHERE shop_owner =:user_name");
-$stmt->execute(array('user_name' => $_SESSION['user_name']));
+$stmt = $conn->prepare("Select * from `shop` WHERE shop_owner =:user_account");
+$stmt->execute(array('user_account' => $_SESSION['user_account']));
 
 if ($stmt->rowCount()==0){
     exit();
