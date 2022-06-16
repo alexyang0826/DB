@@ -430,18 +430,265 @@ try {
             </div>
         </div>
         <div id="my_order" class="tab-pane fade">
-            <h3>My Order</h3>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="ex5">status</label>
+                </div>
+                <div class="col-xs-2">
+                    <select class="form-control" >
+                        <option>All</option>
+                        <option>Finished</option>
+                        <option>Not Finish</option>
+                        <option>Cancel</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="  col-xs-8">
+                    <table class="table" style=" margin-top: 15px;">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Start</th>
+
+                            <th scope="col">End</th>
+                            <th scope="col">Shop name</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Order Details</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php
+                        $dbservername = 'localhost';
+                        $dbname = 'db';
+                        $dbusername = 'admin';
+                        $dbpassword = 'admin';
+
+                        $conn = new PDO(
+                            "mysql:host=$dbservername;dbname=$dbname",
+                            $dbusername, $dbpassword);
+
+                        $conn->setAttribute(
+                            PDO::ATTR_ERRMODE,
+                            PDO::ERRMODE_EXCEPTION);
+                        if ($_SESSION['user_type'] == 'manger') {
+                            $stmt = $conn->prepare("select * from product where product_shop=:product_shop");
+                            $stmt->execute(array('product_shop' => $_SESSION['shop_name']));
+                            $order = 0;
+                            unset($row);
+                            while ($row = $stmt->fetch()) {
+                                $order++;
+                                $PID = $row['PID'];
+                                $product_img_type = $row['product_img_type'];
+                                $product_img = $row['product_img'];
+                                $product_name = $row['product_name'];
+                                $product_price = $row['product_price'];
+                                $product_amount = $row['product_amount'];
+                                echo <<<EOT
+                                    <!DOCTYPE html>
+                                    <tr>
+                                        <th scope="row">$order</th>
+                                        <td><img src="data:$product_img_type; base64,$product_img" max-width="100px" height="100px" alt="Hamburger"></td>
+                                        <td>$product_name</td>
+                                        <td>$product_price</td>
+                                        <td>$product_amount</td>
+                                        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#Hamburger-1">
+                                        Edit
+                                        </button></td>
+                                        <!-- Modal -->
+                                            <div class="modal fade" id="Hamburger-1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">$product_name Edit</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        
+                                                        <!--change_meal form-->
+                                                        <form action="php/change.php" method="post">
+                                                            <div class="modal-body">
+                                                                <div class="row" >
+                                                                    <div class="col-xs-6">
+                                                                        <label for="ex71">Price</label>
+                                                                        <input class="form-control" id="ex71" name="product_price" type="text">
+                                                                    </div>
+                                                                    <div class="col-xs-6">
+                                                                        <label for="ex41">Quantity</label>
+                                                                        <input class="form-control" id="ex41" name="product_amount" type="text">
+                                                                    </div>
+                                                                    <input type="hidden" name="PID" value="$PID">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-secondary">Edit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <form action="php/delete.php" method="post">
+                                            <input type="hidden" name="PID" value="$PID">
+                                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
+                                        </form>
+                                    EOT;
+                            }
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
         <div id="shop_order" class="tab-pane fade">
-            <h3>Shop Order</h3>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="ex5">status</label>
+                </div>
+                <div class="col-xs-2">
+                    <select class="form-control" >
+                        <option>All</option>
+                        <option>Finished</option>
+                        <option>Not Finish</option>
+                        <option>Cancel</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="  col-xs-8">
+                    <table class="table" style=" margin-top: 15px;">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Start</th>
+
+                            <th scope="col">End</th>
+                            <th scope="col">Shop name</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Order Details</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php
+
+                        $dbservername = 'localhost';
+                        $dbname = 'db';
+                        $dbusername = 'admin';
+                        $dbpassword = 'admin';
+
+                        $conn = new PDO(
+                            "mysql:host=$dbservername;dbname=$dbname",
+                            $dbusername, $dbpassword);
+
+                        $conn->setAttribute(
+                            PDO::ATTR_ERRMODE,
+                            PDO::ERRMODE_EXCEPTION);
+                        if ($_SESSION['user_type'] == 'manger') {
+                            $stmt = $conn->prepare("select * from orders where shop_name=:shop_name");
+                            $stmt->execute(array('shop_name' => $_SESSION['shop_name']));
+                            unset($row);
+                            while ($row = $stmt->fetch()) {
+                                $OID = $row['OID'];
+                                $shop_name = $row['shop_name'];
+                                $user_account = $row['user_account'];
+                                $order_status = $row['order_status'];
+                                $order_start_time = $row['order_start_time'];
+                                $order_finish_time = $row['order_finish_time'];
+                                $order_price = $row['order_price'];
+                                $order_detail = $row['order_detail'];
+
+                                echo <<<EOT
+                                    <!DOCTYPE html>
+                                    <tr>
+                                        <th scope="row">$OID</th>
+                                        <td>$order_status</td>
+                                        <td>$order_start_time</td>
+                                        <td>$order_finish_time</td>
+                                        <td>$shop_name</td>
+                                        <td>$order_price</td>
+                                        <!-- Button trigger modal -->
+                                        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#orderdetail">
+                                          order detail
+                                        </button></td>
+                                    
+                                        <!-- Modal -->
+                                        <
+                                        <div class="modal fade" id="orderdetail" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Order Detail</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <label class="control-label " for="latitude">$deliver_fee</label>
+                                                <br>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              </div>
+                                          </div>
+                                        </div>
+                                    </tr>
+                                    EOT;
+                            }
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
         <div id="transaction_record" class="tab-pane fade">
-            <h3>Transaction Record</h3>
+            <div class="row">
+                <div class="col-xs-2">
+                    <label for="ex5">Action</label>
+                </div>
+                <div class="col-xs-2">
+                    <select class="form-control" id = "transaction_filter" onchange="load_tra()">
+                        <option>All</option>
+                        <option>payment</option>
+                        <option>receive</option>
+                        <option>recharge</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="  col-xs-8">
+                    <table class="table" style=" margin-top: 15px;"  id = "transaction_table">
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 100px">Record ID</th>
+                            <th scope="col">Action</th>
+                            <th scope="col" style="width: 300px">Time</th>
+
+                            <th scope="col">Trader</th>
+                            <th scope="col">Amount change</th>
+                        </tr>
+                        </thead>
+                        <tbody id = "transaction_table_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script>
-    search_list(filter);
+    window.onload = function (){
+        search_list(filter);
+        load_tra();
+    }
 </script>
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
@@ -459,6 +706,7 @@ try {
             $(this).tab('show');
         });
     });
+
 </script>
 
 <!-- Option 2: Separate Popper and Bootstrap JS -->
