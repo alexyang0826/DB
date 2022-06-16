@@ -27,7 +27,8 @@ try {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="js/check_shop_name.js"></script>
     <script src="js/search_list.js"></script>
-
+    <script src="js/order.js"></script>
+    <script src="js/calculate.js"></script>
     <title>VberEats</title>
 </head>
 
@@ -130,7 +131,6 @@ try {
             </div>
 
             <!--
-
                  -->
             <h3>Search</h3>
             <div class=" row  col-xs-8">
