@@ -67,32 +67,14 @@
         $tra_money = $row['order_price'];
 
         //user receive
-        while(1){
-            $TID = rand(0,10000);
-            $stmt = $conn->prepare('SELECT * from `transaction` where TID=:TID');
-            $stmt->execute(array('TID' =>$TID));
-            if($stmt->rowCount()==0){
-                break;
-            }
-        }
-
-        $stmt = $conn->prepare('INSERT INTO `transaction` (TID,user_account,trader,tra_price,tra_time, tra_action) values 
-                                   (:TID,:account,:trader,:val,:time,:type)');
-        $stmt->execute(array('TID' => $TID,'account' =>$tra_user,'trader'=>$tra_shop  ,'val'=>'+'.$tra_money ,'time'=>$time , 'type' => 'receive'));
+        $stmt = $conn->prepare('INSERT INTO `transaction` (user_account,trader,tra_price,tra_time, tra_action) values 
+                                   (:account,:trader,:val,:time,:type)');
+        $stmt->execute(array('account' =>$tra_user,'trader'=>$tra_shop  ,'val'=>'+'.$tra_money ,'time'=>$time , 'type' => 'receive'));
 
         //payment
-        while(1){
-            $TID = rand(0,10000);
-            $stmt = $conn->prepare('SELECT * from `transaction` where TID=:TID');
-            $stmt->execute(array('TID' =>$TID));
-            if($stmt->rowCount()==0){
-                break;
-            }
-        }
-
-        $stmt = $conn->prepare('INSERT INTO `transaction` (TID,user_account,trader,tra_price,tra_time, tra_action) values 
-                                   (:TID,:account,:trader,:val,:time,:type)');
-        $stmt->execute(array('TID' => $TID,'account' =>$tra_shop ,'trader'=>$tra_user ,'val'=>'-'.$tra_money ,'time'=>$time , 'type' => 'receive'));
+        $stmt = $conn->prepare('INSERT INTO `transaction` (user_account,trader,tra_price,tra_time, tra_action) values 
+                                   (:account,:trader,:val,:time,:type)');
+        $stmt->execute(array('account' =>$tra_shop ,'trader'=>$tra_user ,'val'=>'-'.$tra_money ,'time'=>$time , 'type' => 'receive'));
 
     }
 ?>
