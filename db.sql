@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-06-16 05:36:56
+-- 產生時間： 2022-06-16 05:52:18
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 7.4.29
 
@@ -34,9 +34,7 @@ CREATE TABLE `orders` (
   `order_status` enum('undone','done','cancel') NOT NULL DEFAULT 'undone',
   `order_start_time` datetime NOT NULL DEFAULT current_timestamp(),
   `order_finish_time` datetime DEFAULT NULL,
-  `order_distance` double UNSIGNED NOT NULL,
   `order_price` int(10) UNSIGNED NOT NULL,
-  `order_type` enum('take_out','delivery') NOT NULL,
   `order_detail` varchar(2000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
