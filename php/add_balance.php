@@ -29,13 +29,16 @@ try {
     $stat = $conn->prepare("UPDATE user SET user_balance = :user_balance WHERE user_account = :user_account");
     $stat->execute(array('user_balance' => $value, 'user_account' => $_SESSION['user_account']));
     $_SESSION['user_balance'] = $value;
+    $stat = $conn->prepare("INSERT INTO transaction (user_accont, trader, tra_price, tra_time, tra_action) 
+                                    VALUES (:user_account, :user_account, :tra_price, :tra_time, :tra_action)");
+    $stat->execute(array('user_account'=>$_SESSION['user_account'], 'tra_price'=>'+'.$_POST['value'], 'tra_time' => date("Y-m-d H:i:s"), 'tra_action'=>'recharge'));
     echo <<<EOT
             <!DOCTYPE html>
             <html lang="en-us">
                 <body>
                     <script>
                         alert("Add balance successfully.");
-                        window.location.replace("../nav.php");
+                        window.location.replace("../nav.php#home");
                     </script>
                 </body>
             </html>
@@ -49,7 +52,7 @@ EOT;
             <body>
                 <script>
                 alert("$msg");
-                window.location.replace("../nav.php");
+                window.location.replace("../nav.php#home");
                 </script>
             </body>
         </html>
