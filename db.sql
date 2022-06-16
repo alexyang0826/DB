@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-06-15 15:01:16
+-- 產生時間： 2022-06-16 05:36:56
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 7.4.29
 
@@ -36,19 +36,8 @@ CREATE TABLE `orders` (
   `order_finish_time` datetime DEFAULT NULL,
   `order_distance` double UNSIGNED NOT NULL,
   `order_price` int(10) UNSIGNED NOT NULL,
-  `order_type` enum('take_out','delivery') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `orders_product`
---
-
-CREATE TABLE `orders_product` (
-  `OID` int(4) UNSIGNED ZEROFILL NOT NULL,
-  `PID` int(4) UNSIGNED ZEROFILL NOT NULL,
-  `op_amount` int(10) UNSIGNED NOT NULL
+  `order_type` enum('take_out','delivery') NOT NULL,
+  `order_detail` varchar(2000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -99,9 +88,7 @@ CREATE TABLE `shop` (
 
 INSERT INTO `shop` (`SID`, `shop_name`, `shop_location`, `shop_category`, `shop_owner`) VALUES
 (0002, 'macdonald', 0x000000000101000000aad36f9d04405e404491fae3e3c83840, 'fast food', 'user1'),
-(0003, 'starbucks', 0x0000000001010000000afceceb613e5e40d79d8059bbcf3840, 'coffee', 'user2'),
-(0005, 'Kentucky Fried Chicken', 0x000000000101000000514efb9fc8405e40a7c564cdb0cc3840, 'fast food', 'user3'),
-(0006, '123', 0x00000000010100000000000000000028400000000000002840, '123', '123');
+(0003, 'starbucks', 0x0000000001010000000afceceb613e5e40d79d8059bbcf3840, 'coffee', 'user2');
 
 -- --------------------------------------------------------
 
@@ -155,12 +142,6 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`OID`);
 
 --
--- 資料表索引 `orders_product`
---
-ALTER TABLE `orders_product`
-  ADD PRIMARY KEY (`OID`,`PID`);
-
---
 -- 資料表索引 `product`
 --
 ALTER TABLE `product`
@@ -183,7 +164,8 @@ ALTER TABLE `transaction`
 -- 資料表索引 `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`UID`);
+  ADD PRIMARY KEY (`UID`),
+  ADD UNIQUE KEY `user_account` (`user_account`);
 
 --
 -- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
