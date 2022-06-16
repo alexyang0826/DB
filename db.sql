@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-06-16 06:03:46
+-- 產生時間： 2022-06-16 06:09:37
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 7.4.29
 
@@ -98,7 +98,7 @@ CREATE TABLE `transaction` (
   `TID` int(4) UNSIGNED ZEROFILL NOT NULL,
   `user_accont` varchar(100) NOT NULL,
   `trader` varchar(100) NOT NULL,
-  `tra_price` int(10) UNSIGNED NOT NULL,
+  `tra_price` int(10) NOT NULL,
   `tra_time` datetime NOT NULL,
   `tra_action` enum('payment','recharge','receive') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
