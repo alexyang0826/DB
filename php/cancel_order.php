@@ -98,7 +98,7 @@
         $stmt->execute(array('money' =>(int)$row['order_price'],'u_account'=>$row['user_account']));
 
         //shop owner
-        $stmt = $conn->prepare('UPDATE user set balance=balance-:money where user_account=
+        $stmt = $conn->prepare('UPDATE user set user_balance=user_balance-:money where user_account=
                         (SELECT user_account from user join shop on user.account =shop.shop_owner where shop_name =:shop)');
         $stmt->execute(array('money' =>(int)$row['order_price'],'shop'=>$row["shop_name"]));
 
